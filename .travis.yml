@@ -1,8 +1,6 @@
 language: nix
 nix: 2.3.4
 
-sudo: false
-
 env:
   global:
     - CACHIX_CACHE=nprindle
@@ -18,12 +16,13 @@ script:
 
 deploy:
   provider: pages
-  github_token: $GITHUB_TOKEN
+  token: $GITHUB_TOKEN
   project_name: blog
-  skip-cleanup: true
+  cleanup: false
   keep_history: true
   on:
     branch: master
   target_branch: gh-pages
-  local_dir: result
+  # Travis will fail after deployment if using a symlink directly
+  local_dir: "$(readlink result)"
 
