@@ -20,4 +20,15 @@ rec {
     buildPhase = "${site}/bin/site build";
     installPhase = ''cp -r _site "$out"'';
   };
+
+  shell = hpkgs.shellFor {
+    packages = [ site ];
+
+    buildInputs = (with pkgs; [
+      # Needed for niv
+      niv nix cacert
+    ]) ++ (with hpkgs; [
+      ghcid
+    ]);
+  };
 }
