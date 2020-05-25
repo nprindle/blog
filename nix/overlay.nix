@@ -40,7 +40,7 @@ let
   composeOverlays = lib.foldl' lib.composeExtensions (_: _: {});
 
 in {
-  niv = import sources.niv {};
+  niv = (import sources.niv {}).niv;
 
   haskell = super.haskell // {
     packages = super.haskell.packages // {

@@ -26,7 +26,9 @@ rec {
   };
 
   shell = hpkgs.shellFor {
-    packages = [ site ];
+    packages = ps: with ps; [ site ];
+
+    withHoogle = true;
 
     buildInputs = (with pkgs; [
       # Needed for niv
@@ -34,6 +36,8 @@ rec {
     ]) ++ (with hpkgs; [
       ghcid
     ]);
+
+    exactDeps = true;
 
     # Unicode support
     LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
