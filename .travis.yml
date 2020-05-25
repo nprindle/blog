@@ -1,0 +1,29 @@
+language: nix
+nix: 2.3.4
+
+sudo: false
+
+env:
+  global:
+    - CACHIX_CACHE=nprindle
+
+install:
+  - nix --version
+  - travis_retry nix-channel --update
+  - nix-env -iA cachix -f https://cachix.org/api/v1/install
+  - cachix use "${CACHIX_CACHE}"
+
+script:
+  - nix-build -A blog
+
+deploy:
+  provider: pages
+  github_token: $GITHUB_TOKEN
+  project_name: blog
+  skip-cleanup: true
+  keep_history: true
+  on:
+    branch: master
+  target_branch: gh-pages
+  local_dir: result
+
