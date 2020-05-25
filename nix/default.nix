@@ -16,19 +16,12 @@ rec {
   blog = pkgs.stdenv.mkDerivation {
     name = "blog";
     src = clean ../.;
-
-    # Need to set this for Unicode support
-    LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
-    LANG = "en_US.UTF-8";
-
     buildPhase = "${site}/bin/site build";
     installPhase = ''cp -r _site "$out"'';
   };
 
   shell = hpkgs.shellFor {
     packages = ps: with ps; [ site ];
-
-    withHoogle = true;
 
     buildInputs = (with pkgs; [
       # Needed for niv
@@ -37,12 +30,7 @@ rec {
       ghcid
     ]);
 
+    withHoogle = true;
     exactDeps = true;
-
-    # Unicode support
-    LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
-    shellHook = ''
-      export LANG=en_US.UTF-8
-    '';
   };
 }

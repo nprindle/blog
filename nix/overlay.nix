@@ -20,7 +20,15 @@ let
 
   # Result packages
   mainOverlay = hself: hsuper: {
-    site = hsuper.callCabal2nix "blog" (clean ../.) {};
+    site = (hsuper.callCabal2nix "blog" (clean ../.) {}).overrideAttrs (old: {
+      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ super.makeWrapper ];
+      # Need to set $LANG for Unicode support in a pure environment
+      postInstall = (old.postInstall or "") + ''
+        wrapProgram "$out/bin/site" \
+          --set LOCALE_ARCHIVE "${super.glibcLocales}/lib/locale/locale-archive" \
+          --set LANG "en_US.UTF-8"
+      '';
+    });
   };
 
   composeOverlays = lib.foldl' lib.composeExtensions (_: _: {});
