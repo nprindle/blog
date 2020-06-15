@@ -1,5 +1,5 @@
-# blog
+# nprindle.github.io
 
-[![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org) [![Build Status](https://travis-ci.com/nprindle/blog.svg?branch=master)](https://travis-ci.com/nprindle/blog)
+[![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org) [![Build Status](https://travis-ci.com/nprindle/nprindle.github.io.svg?branch=master)](https://travis-ci.com/nprindle/nprindle.github.io)
 
-My personal blog
+My personal website and blog

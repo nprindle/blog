@@ -11,10 +11,12 @@ let
 in
 
 rec {
+  # The executable to build the site
   inherit (hpkgs) site;
 
+  # The site itself
   blog = pkgs.stdenv.mkDerivation {
-    name = "blog";
+    name = "site";
     src = clean ../.;
     buildPhase = "${site}/bin/site build";
     installPhase = ''cp -r _site "$out"'';
@@ -28,6 +30,8 @@ rec {
       niv nix cacert
     ]) ++ (with hpkgs; [
       ghcid
+      cabal-install
+      stylish-haskell
     ]);
 
     withHoogle = true;

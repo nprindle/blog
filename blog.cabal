@@ -8,10 +8,12 @@ build-type:
   Simple
 
 executable site
+  hs-source-dirs:
+    src
   main-is:
-    site.hs
+    Site.hs
   build-depends:
-    , base ^>= 4.13.0.0
+    , base >= 4.13.0.0
     , hakyll == 4.13.3.*
   ghc-options:
     -threaded
