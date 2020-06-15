@@ -1,1 +1,1 @@
-builtins.removeAttrs (import nix/.) [ "shell" ]
+(import nix/.).blog
