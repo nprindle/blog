@@ -6,8 +6,6 @@ let
   };
 
   hpkgs = pkgs.haskell.packages.ghc883;
-
-  clean = import ./clean.nix { inherit (pkgs) lib; };
 in
 
 rec {
@@ -17,7 +15,7 @@ rec {
   # The site itself
   blog = pkgs.stdenv.mkDerivation {
     name = "site";
-    src = clean ../.;
+    src = pkgs.lib.cleanSource ../.;
     buildPhase = "${site}/bin/site build";
     installPhase = ''cp -r _site "$out"'';
   };

@@ -10,7 +10,10 @@ else lib.cleanSourceWith {
     let
       baseName = baseNameOf (toString name);
       # Filetypes to ignore, e.g. ".nix"
-      ignoreExts = [];
+      ignoreExts = [
+        # These are only ignored when building the executable
+        ".markdown" ".md" ".rst" ".html" ".css" ".png" ".jpg" ".jpeg"
+      ];
     in !lib.any (x: x) [
       ((type == "regular") && (lib.any (ext: lib.hasSuffix ext baseName) ignoreExts))
       # git files
