@@ -25,13 +25,14 @@ main = hakyll $ do
       >>= loadAndApplyTemplate "templates/default.html" postCtx
       >>= relativizeUrls
 
-  create ["archive.html"] $ do
+  create [ "archive.html" ] $ do
     route idRoute
     compile $ do
       posts <- recentFirst =<< loadAll "posts/*"
-      let archiveCtx = defaultContext <> mconcat
-            [ listField "posts" postCtx (pure posts)
-            , constField "title" "Archives"
+      let archiveCtx = mconcat
+            [ constField "title" "Archives"
+            , listField "posts" postCtx (pure posts)
+            , defaultContext
             ]
 
       makeItem ""
@@ -43,8 +44,10 @@ main = hakyll $ do
     route idRoute
     compile $ do
       posts <- recentFirst =<< loadAll "posts/*"
-      let indexCtx = defaultContext
-            <> listField "posts" postCtx (pure posts)
+      let indexCtx = mconcat
+            [ listField "posts" postCtx (pure posts)
+            , defaultContext
+            ]
 
       getResourceBody
         >>= applyAsTemplate indexCtx
@@ -54,5 +57,5 @@ main = hakyll $ do
   match "templates/*" $ compile templateBodyCompiler
 
 postCtx :: Context String
-postCtx = defaultContext <> dateField "date" "%B %e, %Y"
+postCtx = dateField "date" "%B %e, %Y" <> defaultContext
 
