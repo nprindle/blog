@@ -21,7 +21,7 @@ deploy:
   cleanup: false
   keep_history: true
   on:
-    branch: master
+    branch: main
   target_branch: gh-pages
   # Travis will fail after deployment if using a symlink directly
   local_dir: "$(readlink result)"
