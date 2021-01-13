@@ -12,7 +12,7 @@ install:
   - cachix use "${CACHIX_CACHE}"
 
 script:
-  - nix-build -A blog
+  - nix build
 
 deploy:
   provider: pages

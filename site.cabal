@@ -1,7 +1,7 @@
 cabal-version: 2.4
 
 name:
-  blog
+  site
 version:
   0.1.0.0
 build-type:
@@ -14,7 +14,7 @@ executable site
     Site.hs
   build-depends:
     , base >= 4.13.0.0
-    , hakyll == 4.13.3.*
+    , hakyll
   ghc-options:
     -threaded
   default-language:
