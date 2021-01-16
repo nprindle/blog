@@ -43,7 +43,7 @@ main = hakyll $ do
   match "index.html" $ do
     route idRoute
     compile $ do
-      posts <- recentFirst =<< loadAll "posts/*"
+      posts <- fmap (take 3) . recentFirst =<< loadAll "posts/*"
       let indexCtx = mconcat
             [ listField "posts" postCtx (pure posts)
             , defaultContext
